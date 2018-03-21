@@ -15,6 +15,8 @@ import com.mike.Amount;
 import com.mike.Balance;
 import com.mike.Transaction;
 import com.mike.User;
+import com.mike.exception.UserNotFoundException;
+import com.mike.exception.UsersAreSameException;
 import com.mike.routes.QueueNames;
 
 @Service
@@ -48,14 +50,14 @@ public class TrustLineServiceImpl implements TrustLineService {
      * 2. Check if to and from users are same or not
      * 3. Create and Send a message to the topic "transaction"
      */
-    public void startTransaction(Transaction transaction) throws Exception {
+    public void startTransaction(Transaction transaction) {
         // 1
-        checkUser(transaction.getFromUser());
-        checkUser(transaction.getToUser());
+        checkUser(transaction.getFromUser(), transaction);
+        checkUser(transaction.getToUser(), transaction);
 
         // 2
         if (transaction.getFromUser().equals(transaction.getToUser())) {
-            throw new Exception("From user and to user are the same");
+            throw new UsersAreSameException(transaction);
         }
         
         // 3
@@ -67,9 +69,9 @@ public class TrustLineServiceImpl implements TrustLineService {
         producerTemplate.send(QueueNames.TRANSACTION_TOPIC, toUserExchange);
     }
 
-    private void checkUser(User userToCheck) throws Exception {
+    private void checkUser(User userToCheck, Transaction transaction) throws UserNotFoundException {
         if (!userService.userExists(userToCheck)) {
-            throw new Exception("The user " + userToCheck + " does not exist");
+            throw new UserNotFoundException(userToCheck, transaction);
         }
     }
 

@@ -132,7 +132,8 @@ public class ClientMain {
            logger.info("Sending {} which has a user that shouldn't exist", transaction3);
            
            try {
-              ResponseEntity<?> responseEntity = restTemplate.postForEntity("http://localhost:" + SERVER1_PORT_VALUE + "/send", entity, ResponseEntity.class);
+              ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://localhost:" + SERVER1_PORT_VALUE + "/send", entity, String.class);
+              logger.info("Respponse for transaction where a user does not exist {}", responseEntity.getBody());
            } catch (RestClientException e) {
                logger.error("Failed to send to " + chewie.getName(), e);
            }

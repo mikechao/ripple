@@ -36,6 +36,6 @@ public interface TrustLineService {
      *             For example if the 2 users involved in the transaction are the
      *             same
      */
-    public void startTransaction(Transaction transaction) throws Exception;
+    public void startTransaction(Transaction transaction);
 
 }
