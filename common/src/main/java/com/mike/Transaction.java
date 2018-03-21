@@ -2,6 +2,8 @@ package com.mike;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -54,4 +56,26 @@ public class Transaction implements Serializable {
 				.append("amount", amount)
 				.toString();
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Transaction)) {
+            return false;
+        }
+        Transaction other = (Transaction) o;
+        return new EqualsBuilder()
+                .append(this.getFromUser(), other.getFromUser())
+                .append(this.getToUser(), other.getToUser())
+                .append(this.getAmount(), other.getAmount())
+                .isEquals();
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(fromUser)
+                .append(toUser)
+                .append(amount)
+                .toHashCode();
+    }
 }
