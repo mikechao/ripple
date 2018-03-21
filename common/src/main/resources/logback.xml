@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- Appender Configurations -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5.5p - %-40.40logger - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- set spring to warn as info logs way too much -->
+	<logger name="org.springframework" level="warn" />
+	<!-- suppress apache and hibernate logging as well -->
+	<logger name="org.apache" level="warn"/>
+	<logger name="org.hibernate" level="error"/>
+	
+	<logger name="com.mike" level="debug" />
+	
+	<root level="info">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>
