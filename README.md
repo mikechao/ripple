@@ -11,12 +11,12 @@ ripple/mvn package
 ```
 
 ### Jars are located in
-	- ripple/server/target
-	- ripple/client/target
+    ripple/server/target
+    ripple/client/target
 
 ### Code coverage reports located in
-	- ripple/common/target/coverage-reports/index.html
-	- ripple/server/target/coverage-reports/index.html
+    ripple/common/target/coverage-reports/index.html
+	ripple/server/target/coverage-reports/index.html
 
 ### Launching the server
 The following command launches the server for the user Bob
